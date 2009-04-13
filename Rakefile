@@ -36,7 +36,7 @@ PKG_FILES = FileList[
 
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
-  s.version = PKG_VERSION
+  s.version = "#{PKG_VERSION}.0.#{Time.now.to_i}"
   s.summary = "RR (Double Ruby) is a double framework that features a rich " <<
               "selection of double techniques and a terse syntax. " <<
               "http://xunitpatterns.com/Test%20Double.html"
@@ -56,6 +56,13 @@ spec = Gem::Specification.new do |s|
   s.email = "brian@pivotallabs.com"
   s.homepage = "http://pivotallabs.com"
   s.rubyforge_project = "pivotalrb"
+end
+
+desc "Generate a gemspec file"
+task :gemspec do
+  File.open("#{spec.name}.gemspec", 'w') do |f|
+    f.write spec.to_yaml
+  end
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
